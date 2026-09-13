@@ -1,0 +1,81 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#071d3b">
+  <title>Don't Look At Me! | The Shy Boss Fight</title>
+  <link rel="stylesheet" href="css/main.css">
+  <link rel="stylesheet" href="css/menu.css">
+  <link rel="stylesheet" href="css/game.css">
+  <link rel="stylesheet" href="css/no-timer.css">
+  <link rel="stylesheet" href="css/player-responsive.css">
+  <link rel="stylesheet" href="css/boss-presentation.css">
+  <link rel="stylesheet" href="css/intro-minimal.css">
+  <link rel="stylesheet" href="css/intro-boss-size.css">
+</head>
+<body>
+  <main id="app">
+    <section id="screen-menu" class="screen active">
+      <div class="menu-grid">
+        <div class="menu-copy panel">
+          <p class="eyebrow">A WEBCAM-POWERED ARCADE FIGHT</p>
+          <h1>DON'T LOOK<br><span>AT ME!</span></h1>
+          <p class="subtitle">THE SHY BOSS FIGHT</p>
+          <div class="rule-line"></div>
+          <p class="intro-copy">He's dangerous.<br>He's fast.<br>And he <strong>REALLY</strong> hates eye contact.</p>
+          <div class="mission"><span>YOUR MISSION</span><b>Defeat the boss before he catches you.</b><small>LOOK AWAY TO ATTACK. HE WILL NOTICE.</small></div>
+          <div class="menu-buttons">
+            <button id="start-button" class="button primary">▶ START GAME</button>
+            <button id="scores-button" class="button secondary">🏆 HIGH SCORES</button>
+          </div>
+          <p class="privacy">Your camera is processed locally.<br>No video is uploaded or stored.</p>
+        </div>
+        <div class="menu-hero">
+          <div class="cloud cloud-one"></div><div class="cloud cloud-two"></div>
+          <div class="hero-sun"></div>
+          <div class="floating-block block-one"></div><div class="floating-block block-two"></div>
+          <div class="boss-hero"><div class="pixel-boss large"><i class="eye left"></i><i class="eye right"></i><i class="mouth"></i></div><div class="boss-shadow"></div></div>
+          <div class="hero-ground"><span></span><span></span><span></span></div>
+          <div class="speech-bubble">NO EYE<br>CONTACT!</div>
+        </div>
+      </div>
+    </section>
+
+    <section id="screen-instructions" class="screen centered-screen">
+      <div class="panel instruction-panel">
+        <div class="section-kicker">MISSION BRIEFING // 01</div><h2>HOW TO PLAY</h2>
+        <div class="instruction-grid">
+          <div><b>🎯 MOVE</b><span>Move the cursor to dodge.</span></div><div><b>🔫 ATTACK</b><span>Press SPACE to hit the boss.</span></div>
+          <div><b>👁️ WEBCAM</b><span>Your camera reads your gaze.</span></div><div><b>🙈 LOOK AWAY</b><span>Only safe shots do damage.</span></div>
+          <div><b>👀 LOOK AT SCREEN</b><span>He notices. You lose a life.</span></div><div><b>❤️ LIVES</b><span>You have three chances.</span></div>
+        </div>
+        <label class="player-name-field" for="player-name">PLAYER NAME<input id="player-name" type="text" maxlength="12" placeholder="PLAYER" autocomplete="nickname"></label>
+        <button id="got-it-button" class="button primary">GOT IT → START</button>
+      </div>
+    </section>
+
+    <section id="screen-camera" class="screen centered-screen">
+      <div class="panel camera-panel">
+        <div class="section-kicker">SYSTEM CHECK // 02</div><h2>CAMERA CHECK</h2>
+        <p id="camera-status">Look directly at the screen.</p>
+        <div class="camera-frame"><video id="camera-video" autoplay muted playsinline></video><div class="scanline"></div><span id="camera-badge">CAMERA STANDBY</span></div>
+        <div class="calibration-steps"><span id="step-face">1 FACE DETECTED</span><span id="step-gaze">2 GAZE TRACKING</span><span id="step-ready">3 READY</span></div>
+        <p id="camera-mode" class="privacy">Camera processing stays on this device.</p>
+        <button id="camera-action" class="button primary">ENABLE CAMERA</button>
+      </div>
+    </section>
+
+    <section id="screen-game" class="screen game-screen">
+      <canvas id="game-canvas"></canvas>
+      <div id="hud" class="hud"><div class="brand-mini">DON'T LOOK AT ME!</div><div class="hud-card score-hud"><span>SCORE</span><b id="score-value">000000</b></div><div class="hud-card hp-hud"><span>BOSS HP</span><div class="hp-bar"><i id="boss-hp-bar"></i></div></div><div class="hud-card timer-hud"><span>TIME</span><b id="timer-value">30.0</b></div><div class="lives" id="lives-value">❤️ ❤️ ❤️</div><div class="combo" id="combo-value">COMBO ×1</div><button id="pause-button" class="icon-button" title="Pause">Ⅱ</button><button id="sound-button" class="icon-button" title="Sound">🔊</button></div>
+      <div id="game-message" class="game-message"></div><div id="gaze-status" class="gaze-status">GAZE: <b>UNKNOWN</b></div><div id="camera-mini" class="camera-mini"><video id="camera-mini-video" autoplay muted playsinline></video><span>LOCAL CAMERA</span></div>
+    </section>
+
+    <section id="screen-pause" class="screen centered-screen overlay-screen"><div class="panel small-panel"><div class="section-kicker">SYSTEM PAUSED</div><h2>TAKE A BREATH</h2><p>The boss is waiting. Try not to look at him.</p><button id="resume-button" class="button primary">▶ RESUME</button><button id="quit-button" class="button secondary">EXIT TO MENU</button></div></section>
+    <section id="screen-result" class="screen centered-screen"><div class="panel result-panel"><div class="section-kicker" id="result-kicker">RUN COMPLETE</div><h2 id="result-title">BOSS DEFEATED!</h2><p id="result-subtitle">YOU BEAT HIM WITHOUT LOOKING.</p><div id="result-card" class="result-card"></div><div class="result-buttons"><button id="again-button" class="button primary">↻ PLAY AGAIN</button><button id="result-scores-button" class="button secondary">🏆 LEADERBOARD</button><button id="result-menu-button" class="button text-button">MAIN MENU</button></div></div></section>
+    <section id="screen-leaderboard" class="screen centered-screen"><div class="panel leaderboard-panel"><div class="section-kicker">ARCADE ARCHIVES</div><h2>🏆 DON'T LOOK AT ME</h2><p class="subtitle">HIGH SCORES</p><div id="leaderboard-list"></div><button id="clear-scores-button" class="button text-button">CLEAR HISTORY</button><button id="leaderboard-back" class="button secondary">← BACK</button></div></section>
+  </main>
+  <script type="module" src="js/main.js"></script>
+</body>
+</html>
