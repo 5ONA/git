@@ -63,6 +63,20 @@ function showResult(result) {
   query('#result-kicker','#game-over-reason')?.replaceChildren(document.createTextNode(result.won ? 'RUN COMPLETE // VICTORY' : result.reason));
   query('#result-title')?.replaceChildren(document.createTextNode(result.won ? 'BOSS DEFEATED!' : 'GAME OVER'));
   query('#result-subtitle')?.replaceChildren(document.createTextNode(result.won ? 'YOU BEAT HIM WITHOUT LOOKING.' : result.reason));
+  const resultCard = query('#result-card');
+  if (resultCard) {
+    const shots = result.shots ?? result.hits + (result.misses ?? 0);
+    const misses = result.misses ?? Math.max(0, shots - result.hits);
+    resultCard.innerHTML = [
+      ['SCORE', String(result.score).padStart(6, '0')],
+      ['HITS', result.hits],
+      ['SHOTS', shots],
+      ['ACCURACY', `${result.accuracy}%`],
+      ['MISSES', misses],
+      ['BEST COMBO', result.combo],
+      ['LIVES LEFT', result.lives]
+    ].map(([label, value]) => `<div class="result-stat"><span>${label}</span><b>${value}</b></div>`).join('');
+  }
   const leaderboard = query('#leaderboard-list'); if (leaderboard) renderLeaderboard(leaderboard);
 }
 query('#start-button','#start-game-btn')?.addEventListener('click', () => { audio.click(); show('instructions'); });
